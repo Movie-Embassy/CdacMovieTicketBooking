@@ -1,0 +1,34 @@
+[
+  {
+    "movieId": 2,
+    "movieName": "The Adventure Chronicles",
+    "releaseDate": "2023-08-23",
+    "movieTile": "",
+    "movieBgImage": "",
+    "movieRating": 0
+  },
+  {
+    "movieId": 3,
+    "movieName": "Space Odyssey",
+    "releaseDate": "2023-09-10",
+    "movieTile": "",
+    "movieBgImage": "",
+    "movieRating": 0
+  },
+  {
+    "movieId": 4,
+    "movieName": "Enchanted Forest",
+    "releaseDate": "2023-07-15",
+    "movieTile": "",
+    "movieBgImage": "",
+    "movieRating": 0
+  },
+  {
+    "movieId": 5,
+    "movieName": "Midnight Noir",
+    "releaseDate": "2023-05-28",
+    "movieTile": "",
+    "movieBgImage": "",
+    "movieRating": 0
+  }
+]
