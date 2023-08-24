@@ -1,0 +1,53 @@
+    DELIMITER $$   
+    CREATE TRIGGER payment_oi_tr AFTER INSERT  
+    ON payment FOR EACH ROW  
+    BEGIN  
+    declare showid int;
+    
+    declare bookingid int;
+    
+    declare ticketid int;
+    
+      set @showid := (select show_id from booking where booking_id=new.booking_id limit 1);
+      
+      set @bookingid := (new.booking_id);
+      
+      insert into ticket (user_id,booking_datetime,show_id,transaction_id) values(new.user_id,new.payment_datetime,@showid,new.transaction_id);
+      
+      
+      set @ticketid := (select max(ticket_id) from ticket);
+      
+      update booking set ticket_id =@ticketid where booking_id=@bookingid;
+      
+      update booking_seat set status ='BOOKED' where booking_id=@bookingid;
+       
+/*insert into temp values (@a);*/
+       
+    END $$  
+    DELIMITER ;  
+    
+    
+    
+create table booking (booking_id int auto_increment primary key,user_id int,show_id int,ticket_id int,transaction_start_time datetime);
+Query OK, 0 rows affected (0.03 sec)
+
+
+create table booking_seat (booking_seat_id int auto_increment primary key,booking_id int, seat_id int,status varchar(10));
+Query OK, 0 rows affected (0.04 sec)
+
+create table payment (transaction_id int auto_increment primary key,amount decimal(7,3),payment_datetime datetime,user_id int,booking_id int);
+Query OK, 0 rows affected (0.05 sec)
+
+
+create table ticket(ticket_id int auto_increment primary key,user_id int,booking_datetime datetime,show_id int,transaction_id int );
+Query OK, 0 rows affected (0.03 sec)
+
+create table ticket_seat (ticket_seat_id int auto_increment primary key,ticket_id int ,seat_id int);
+Query OK, 0 rows affected (0.04 sec)
+
+INSERT INTO booking_seat values(1,1,1,'BOOKED'), (2,1,2,'BOOKED'), (3,2,3,'BLOCKED'), (4,2,7,'BLOCKED'), (5,3,10,'BOOKED'), (6,4,11,'BLOCKED'), (7,5,12,'BOOKED');
+
+insert into payment values(1,348.23,20230822170428,2,2);
+insert into payment values(2,338.23,20230821170428,3,4);
+
+

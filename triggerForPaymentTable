@@ -1,0 +1,13 @@
+    DELIMITER $$   
+    CREATE TRIGGER payment_oi_tr AFTER INSERT  
+    ON payment FOR EACH ROW  
+    BEGIN  
+       insert into ticket (booking_date_time) values (new.paymentDateTime);
+    END $$  
+    DELIMITER ;  
+    
+    
+    
+    create table booking (booking_id int auto_increment primary key,user_id int,show_id int,ticket_id int,transaction_start_time datetime);
+Query OK, 0 rows affected (0.03 sec)
+
